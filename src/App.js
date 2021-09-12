@@ -24,6 +24,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+          //Hihi
           {renderLayout(clientRoutes, ClientLayout)}
           {/* {renderLayout(adminRoutes, AdminLayout)} */}
           {/* <Route path="/" component={Login} /> */}
