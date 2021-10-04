@@ -1,0 +1,16 @@
+.movieItem {
+  .cardItem {
+    border: none;
+    img {
+      border-radius: 5px;
+    }
+    .cardText {
+      h5 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        white-space: nowrap;
+      }
+    }
+  }
+}
