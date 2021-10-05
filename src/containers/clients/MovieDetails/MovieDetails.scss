@@ -1,0 +1,71 @@
+.movieDetail{
+    border: none;
+    .detailImage{
+      img{
+        width: 330px;
+        height: 450px;
+      }
+    }
+    .detailInfo{
+      .detailBody{
+        h5{
+          font-weight: bold;
+          font-size: 45px;
+        }
+        h1{
+          font-size: 20px;
+          font-weight: 600;
+          color: orange;
+        }
+        p{
+          font-size: 20px;
+          font-weight: 400;
+        }
+      }
+      .detailButton{
+        margin-top: 130px;
+        button{
+          background-color: white;
+          border: orange solid 2px;
+          border-radius: 20px;
+          color: orange;
+          width: 150px;
+          font-weight: bolder;
+        }
+        button:last-child{
+          background-color: white;
+          border: red solid 2px;
+          border-radius: 20px;
+          color: red;
+          width: 150px;
+          font-weight: bolder;
+        }
+        button:hover{
+          color: white;
+          background-color: orange;
+        }
+        button:last-child:hover{
+          color: white;
+          background-color: red;
+        }
+  
+      }
+    }
+  }
+  .name{
+    h3{
+      color: #007BFF;
+    }
+  }
+  .seatPlan{
+    button{
+      background-color:white;
+      color: orange;
+      border: orange solid 2px;
+    }
+    button:hover{
+      color: white;
+      background-color: orange;
+      border: orange;
+    }
+  }

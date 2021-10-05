@@ -1,0 +1,47 @@
+.seatPlan {
+  position: relative;
+  .trapezoid {
+    border-bottom: 50px solid rgba(0, 0, 0, 0.1);
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    height: 0;
+    width: 80%;
+  }
+  .ghe{
+    text-align: center;
+    border: none;
+    width:35px;
+    height:35px;
+    border-radius:5px;
+    cursor:pointer;
+    margin: 10px;
+    background-color:rgb(123, 122, 122);
+    color: #fff;
+    &:hover{
+      opacity: .8;
+    }
+  }
+  .gheDaDat{
+    background-color:#dc3545!important;
+    cursor: no-drop!important;
+  }
+  .gheDangDat{
+    background-color:#28a745!important;
+  }
+  .gheVip{
+    background-color: #ffc107;
+  }
+  .gheKhachChon{
+    background-color: #007bff!important;
+    cursor: no-drop!important;
+  }
+  .datVe{
+    transition: all 0.5s;
+    cursor: pointer;
+    &:hover {
+      background-color:white!important;
+      color:#28a745!important;
+      border: 1px solid #28a745!important;
+    }
+  }
+}
