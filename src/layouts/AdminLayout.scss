@@ -1,0 +1,32 @@
+.adminLayout{
+    html,body { height: 100%; margin: 0px; padding: 0px; }
+    .logo{
+        display:flex;
+        justify-content: center;
+        align-items: flex-end;
+        img{
+            height:40px;
+            margin:10px 5px 10px 0;
+        }
+    }
+    .ant-layout{
+        height:100vh;
+    }
+    // .dropdownMenu{
+    //    position: absolute;
+    //    right: 10px;
+    //    top: 0;
+    //    bottom: 0;
+    // }
+    .ant-dropdown {
+        top: 0!important;
+    }
+    .box {
+        background:red;
+        position:absolute;
+        top:0px;
+        right:0px;
+        bottom:0px;
+        left:0px;
+      } 
+}

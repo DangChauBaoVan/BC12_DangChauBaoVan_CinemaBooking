@@ -10,18 +10,27 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { store, persistor } from 'store';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { PersistGate } from 'redux-persist/integration/react'
+import * as signalR from '@microsoft/signalr';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+export const connection = new signalR.HubConnectionBuilder().withUrl("http://movieapi.cyberlearn.vn/DatVeHub").configureLogging(signalR.LogLevel.Information).build();
+connection.start().then(() => {
+  ReactDOM.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+  
+      </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}).catch(errors =>{
+  console.log("LỗiCÀI ĐẶT")
+})
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

@@ -1,0 +1,65 @@
+.adminListMovie {
+    .form-control:focus {
+        box-shadow: none;
+        outline: none;
+        border-color:none;
+      }
+  table td,
+  .table th {
+    vertical-align: middle;
+  }
+  .moTaStyle {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+  }
+  .containerTable {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .themPhim {
+    button {
+      padding: 10px 15px;
+      font-weight: 500;
+      font-size: 20px;
+    }
+  }
+  .svg-inline--fa.fa-w-14 {
+      margin-left: 5px;
+    width: 0.7em;
+  }
+  .searchBar{
+      margin: 0 auto;
+      .form-control:focus {
+        box-shadow: none;
+      }
+  }
+  #themPhimModal{
+      .modal-header {
+        background-color: #343a40;
+        border-color: #454d55;
+        h5{
+            font-size:25px;
+      }
+        }
+      button{
+          padding: 5px 15px;
+      }
+      .modal-body{
+          label{
+              text-transform: uppercase;
+              font-size: 15px;
+          }
+          input{
+              border: none !important;
+              border-bottom: 1px solid #dee2e6!important;
+          }
+          textarea{
+              resize: none;
+          }
+      }
+  }
+}

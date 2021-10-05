@@ -1,9 +1,12 @@
-import logo from './logo.svg';
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { adminRoutes, clientRoutes } from 'routes';
 import './App.css';
 import PageNotFound from './containers/shared/PageNotFound/PageNotFound';
-import ClientLayout from './layouts/ClientLayout';
+import Login from 'containers/shared/Auth/Login/Login';
+import Register from 'containers/shared/Auth/Register/Register';
+import ClientLayout from 'layouts/ClientLayout';
+import AdminLayout from 'layouts/AdminLayout';
 
 function App() {
   const renderLayout = (routes, Layout) => {
@@ -24,10 +27,10 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          //Hihi
           {renderLayout(clientRoutes, ClientLayout)}
-          {/* {renderLayout(adminRoutes, AdminLayout)} */}
-          {/* <Route path="/" component={Login} /> */}
+          {renderLayout(adminRoutes, AdminLayout)}
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </Router>
