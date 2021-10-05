@@ -1,5 +1,6 @@
+import theaterApi from "apis/theaterApi";
 import userApi from "apis/userApi";
-import { CLEAR_USER_INFOR, GET_USER_INFOR_FAIL, GET_USER_INFOR_REQUEST, GET_USER_INFOR_SUCCESS, UPDATE_USER_INFO_FAIL, UPDATE_USER_INFO_REQUEST, UPDATE_USER_INFO_SUCCESS } from "./type";
+import { CLEAR_USER_INFOR, GET_USER_INFOR_FAIL, GET_USER_INFOR_REQUEST, GET_USER_INFOR_SUCCESS, LAY_DANH_SACH_RAP, UPDATE_USER_INFO_FAIL, UPDATE_USER_INFO_REQUEST, UPDATE_USER_INFO_SUCCESS } from "./type";
 
 const actGetUserInfoRequest = () => ({
     type: GET_USER_INFOR_REQUEST
@@ -51,5 +52,19 @@ export const actUpdateUserInfo = (userInfo,token) => {
             dispatch(actUpdateUserInfoFail('Unable To Update User!'));
         })
 
+    }
+}
+
+const actLayDanhSachRapSuccess = (danhSachRap) => ({
+    type:LAY_DANH_SACH_RAP,
+    payload:danhSachRap
+})
+export const actLayDanhSachRap = ()=>{
+    return dispatch => {
+        theaterApi.getTheaterList().then(respone =>{
+            dispatch(actLayDanhSachRapSuccess(respone.data))
+        }).catch(error=>{
+            console.log(error)
+        })
     }
 }

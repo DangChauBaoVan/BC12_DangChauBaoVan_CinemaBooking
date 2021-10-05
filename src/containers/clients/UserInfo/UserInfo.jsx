@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import "./UserInfo.scss";
-import { actGetUser, actUpdateUserInfo } from "./module/action";
+import { actGetUser, actLayDanhSachRap, actUpdateUserInfo } from "./module/action";
 import Loader from "components/Loader/Loader";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import moment from "moment";
+import movieApi from "apis/movieApi";
+import { actFetchAllMovie } from "../Home/module/action";
 
 class UserInfo extends Component {
   state = {
@@ -236,10 +238,58 @@ class UserInfo extends Component {
       );
     }
   };
+  handleLichSuDatVe = () => {
+    const {dsHeThongRap,movieList} = this.props;
+    
+    let ve = {
+      tenHeThongRap:"",
+      tenCumRap:"",
+      tenRap:"",
+      tenGhe:"",
+      ngayDat:"",
+      tenPhim:"",
+      hinhLogoRap:"",
+      hinhPhim:null,
+     }
+    let arrLSDV = [];
+    if(this.props.userInfo?.thongTinDatVe){
+      this.props.userInfo?.thongTinDatVe.map((ttdv) => ttdv.danhSachGhe.map(dsg => {
+        dsHeThongRap.map(htr => {
+          if(htr.maHeThongRap === dsg.maHeThongRap){
+            ve = {...ve, hinhLogoRap:htr.logo}
+          }
+        } )
+        movieList.map(ml=>{
+          if(((ml.tenPhim.replace(/\s+/g, ''))) == ((ttdv.tenPhim).replace(/\s+/g, ''))){
+            console.log("hihi");
+            console.log(ml.hinhAnh);
+            ve = {...ve, hinhPhim:ml.hinhAnh}
+          }
+        })
+        ve = {
+          ...ve,
+          tenPhim:ttdv.tenPhim,
+          ngayDat:ttdv.ngayDat,
+          tenHeThongRap:dsg.tenHeThongRap,
+          tenCumRap:dsg.tenCumRap,
+          tenRap:dsg.tenRap,
+          tenGhe:dsg.tenGhe,
+        }
+        arrLSDV.push(ve);
+      }));
+      
+      console.log(arrLSDV);
+      return arrLSDV;
+    }else{
+      return 
+    }
+    
+  }
+  
   render() {
     const { loading } = this.props;
     const { readOnly, showButton, values } = this.state;
-
+    this.handleLichSuDatVe();
     if (loading) return <Loader />;
 
     return (
@@ -443,17 +493,31 @@ class UserInfo extends Component {
                     <h3 style={{ color: "#de6262" }}>Lịch Sử Đặt Vé</h3>
                     <div className="container scrollbar w-100"  id="style-7" style={{paddingRight: "17px", overflowY:"hidden"}}>
                       <div className="hideScrollBar w-100" style={{overflowY:"scroll",height:"350px",boxSizing: "content-box"}}>
-                      {this.props.userInfo.thongTinDatVe.map((ttdv) => {
+                      {this.handleLichSuDatVe().map( ttdv => {
                         return (
                           <>
-                            <div className="thongTinVe">
-                              <h3>Tên phim: {ttdv.tenPhim}</h3>
-                              <p>
-                                Ngày đặt:{" "}
-                                {moment(ttdv.ngayDat).format(
-                                  "DD/MM/YYYY HH:MM:SS"
-                                )}
-                              </p>
+                          <h4 className="text-left text-warning">Tên Phim: {ttdv.tenPhim}</h4>
+                            <div className="d-flex p-3">
+                                
+                                <div className="text-left">
+                                    <img src={(ttdv.hinhPhim) ? ttdv.hinhPhim : "https://picsum.photos/100/100"} style={{width:"100px",height:"100px"}} alt="" />
+                                    
+                                </div>
+                                <div className="text-left ml-4">
+                                    <div className="d-flex">
+                                        <div className="hinhNenRap">
+                                            <img src={ttdv.hinhLogoRap} style={{width:"40px",height:"40px"}} alt="" />
+                                        </div>
+                                        <div className="tenRap ml-2">
+                                            <h6>{ttdv.tenHeThongRap}</h6>
+                                            <p>116 Nguyễn Du, Q.1</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="thoiGian">
+                                        Ngày đặt: {moment(ttdv.ngayDat).format("DD/MM/YY HH:MM:SS")} - {ttdv.tenRap} - ghế {ttdv.tenGhe}
+                                    </div>
+                                </div>
                             </div>
                             <hr />
                           </>
@@ -477,6 +541,15 @@ class UserInfo extends Component {
       taiKhoan: curentUser.taiKhoan,
     };
     this.props.getUserInfo(user);
+    this.props.layDSHeThongRap();
+    movieApi.fetchAllMovieApi()
+    .then(res =>{
+      this.props.fetchAllMovie(res.data);
+      // console.log(res);
+    })
+    .catch(err =>{
+      console.log(err);
+    })
     // this.setState({
     //   values:{
     //     taiKhoan: this.props.userInfo.taiKhoan,
@@ -493,7 +566,9 @@ const mapStateToProps = (state) => ({
   error: state.userInfoReducer.error,
   loading: state.userInfoReducer.loading,
   userInfo: state.userInfoReducer.userInfo,
+  dsHeThongRap: state.userInfoReducer.dsHeThongRap,
   listUser: state.authReducer.listUser,
+  movieList: state.movieListReducer.listMovie
 });
 const mapDispatchToProps = (dispatch) => ({
   getUserInfo: (username) => {
@@ -502,6 +577,12 @@ const mapDispatchToProps = (dispatch) => ({
   updateUserInfo: (userInfo, token) => {
     dispatch(actUpdateUserInfo(userInfo, token));
   },
+  layDSHeThongRap: ()=>{
+    dispatch(actLayDanhSachRap());
+  },
+  fetchAllMovie: listMovie =>{
+    dispatch(actFetchAllMovie(listMovie));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
